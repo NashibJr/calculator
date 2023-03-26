@@ -7,7 +7,7 @@ const Calculator = () => {
     <div className="content">
       <h2>Calculator</h2>
       <div className="display">{number_}</div>
-      <div>
+      <div className="table-content">
         <table>
           <tr>
             <td>
