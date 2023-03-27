@@ -53,7 +53,7 @@ table tr td input {
       font-family: century gothic;
 }
 table tr:last-child td input {
-      width: 365px;
+      width: 175px;
 }
 .table-content {
       display: flex;

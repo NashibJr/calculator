@@ -9,7 +9,7 @@ const numberSlice = createSlice({
   reducers: {
     addNumbers: (state, action) => {
       state.numbers.push(action.payload);
-      if (state.numbers[0] && state.numbers[0] === "0") {
+      if (state.numbers && state.numbers[0] === "0") {
         state.numbers.shift();
       }
     },

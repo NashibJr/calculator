@@ -93,6 +93,9 @@ const Calculator = () => {
                 }}
               />
             </td>
+            <td>
+              <input type="button" value="." onClick={handleNumbers} />
+            </td>
           </tr>
         </table>
       </div>
