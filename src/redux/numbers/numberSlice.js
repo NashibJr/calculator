@@ -14,8 +14,14 @@ const numberSlice = createSlice({
       }
     },
     handleAnswer: (state, action) => {
-      const numbers = state.numbers.join("");
-      state.numbers = eval(numbers);
+      try {
+        const numbers = state.numbers.join("");
+        state.numbers = eval(numbers);
+      } catch (error) {
+        if (error) {
+          state.numbers = "Syntax Error";
+        }
+      }
     },
     handleReset: (state, action) => {
       state.numbers = ["0"];
