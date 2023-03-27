@@ -1,0 +1,35 @@
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+  numbers: ["0"],
+};
+const numberSlice = createSlice({
+  name: "numbers",
+  initialState,
+  reducers: {
+    addNumbers: (state, action) => {
+      state.numbers.push(action.payload);
+      if (state.numbers[0] && state.numbers[0] === "0") {
+        state.numbers.shift();
+      }
+    },
+    handleAnswer: (state, action) => {
+      const numbers = state.numbers.join("");
+      state.numbers = eval(numbers);
+    },
+    handleReset: (state, action) => {
+      state.numbers = ["0"];
+    },
+    handleDelete: (state, action) => {
+      state.numbers.pop();
+      if (state.numbers.length === 0) {
+        state.numbers = ["0"];
+      }
+    },
+  },
+});
+
+export const { addNumbers, handleAnswer, handleReset, handleDelete } =
+  numberSlice.actions;
+
+export default numberSlice;
