@@ -66,3 +66,6 @@ table tr {
       flex-wrap: wrap;
       width: 100%;
 }
+table tr td input:focus {
+      box-shadow: 0 0 20px 0 #fff;
+}
