@@ -18,9 +18,7 @@ const numberSlice = createSlice({
         const numbers = state.numbers.join("");
         state.numbers = eval(numbers);
       } catch (error) {
-        if (error) {
-          state.numbers = "Syntax Error";
-        }
+        state.numbers = "Syntax Error";
       }
     },
     handleReset: (state, action) => {
