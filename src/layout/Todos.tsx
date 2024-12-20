@@ -12,6 +12,7 @@ import {
   addTodos,
   deleteTodo,
   editTask,
+  markAsCompleted,
   TodoTypes,
 } from "../redux/slices/todoSlice";
 import { nanoid } from "@reduxjs/toolkit";
@@ -113,6 +114,14 @@ const Todos = () => {
     }
   };
 
+  const handleMarkAsCompleted = (id: string) => {
+    try {
+      dispatch(markAsCompleted({ id }));
+    } catch (error) {
+      console.log(error, ">>>>");
+    }
+  };
+
   const formik = useFormik({
     initialValues: { todoTitle: "" } as TodoProp,
     validateOnBlur: true,
@@ -151,6 +160,14 @@ const Todos = () => {
               setTodoId(todo.id);
             }}
             title={todo.todoTitle}
+            completed={state.completedTodos
+              .map((item) => item.id)
+              .includes(todo.id)}
+            checked={state.completedTodos
+              .map((item) => item.id)
+              .includes(todo.id)}
+            onChange={() => handleMarkAsCompleted(todo.id)}
+            value={todo.id}
           />
         ))}
       </div>
