@@ -39,6 +39,9 @@ const Todos = () => {
   const [openDelDialog, setOpenDelDialog] = React.useState<boolean>(false);
   const [todoId, setTodoId] = React.useState<string>("");
   const [todoToBeEdited, setTodoToBeEdited] = React.useState<TodoTypes>();
+  const [search, setSearch] = React.useState<string>("");
+  const [todos, setTodos] = React.useState<TodoTypes[]>([]);
+  const [filteredTodos, setFilteredTodos] = React.useState<TodoTypes[]>([]);
 
   const state = useAppSelector((state) => state.todos);
   const dispatch = useAppDispatch();
@@ -46,6 +49,23 @@ const Todos = () => {
   const [editTodo, setEditTodo] = React.useState<string>(
     todoToBeEdited?.todoTitle!
   );
+
+  React.useEffect(() => {
+    setTodos(state.todos);
+    setFilteredTodos(state.todos);
+  }, [state.todos]);
+
+  React.useEffect(() => {
+    if (search === "") {
+      setFilteredTodos(state.todos);
+    } else {
+      setFilteredTodos(() =>
+        todos?.filter((todo) =>
+          todo.todoTitle.toLowerCase().includes(search.toLowerCase())
+        )
+      );
+    }
+  }, [search]);
 
   React.useEffect(() => {
     setTodoToBeEdited(state.todos.find((item) => item.id === todoId));
@@ -110,9 +130,16 @@ const Todos = () => {
           <Button label="Add" onClick={() => setOpenAddDialog(true)} />
         </div>
       </div>
-      <Input placeholder="Serach todo" />
+      <Input
+        placeholder="Serach todo"
+        name="search"
+        value={search}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          setSearch(event.target.value)
+        }
+      />
       <div className="flex flex-col gap-3 mt-5">
-        {Array.from(state.todos ?? [], (todo) => (
+        {Array.from(filteredTodos ?? [], (todo) => (
           <Todo
             key={todo.id}
             onDelete={() => {
